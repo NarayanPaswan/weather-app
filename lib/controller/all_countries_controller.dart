@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:weatherapp/models/country_list_model.dart';
 import 'package:dio/dio.dart';

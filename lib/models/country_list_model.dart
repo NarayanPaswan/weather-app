@@ -1,12 +1,12 @@
 class CountryList {
-  String? country;
+  String? name;
   CountryList(
       {
-      this.country,
+      this.name,
       });
 
   CountryList.fromJson(Map<String, dynamic> json) {
-    country = json['country'];
+    name = json['name'];
   }
  
 }
