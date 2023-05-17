@@ -43,15 +43,15 @@ return CountryWeatherModel.fromJson(response.data);
       body: FutureBuilder(
         future: getCountriesWeather(),
         builder: (context, AsyncSnapshot<CountryWeatherModel> snapshot){
-        if(!snapshot.hasData){
-           return const Center(
-                child: CircularProgressIndicator(),
-              );
-        }else if (snapshot.hasError){
-          return Center(
-                child: Text(snapshot.error.toString()),
-              );
-        }else{
+          if(!snapshot.hasData){
+            return const Center(
+                  child: CircularProgressIndicator(),
+                );
+          }else if (snapshot.hasError){
+            return Center(
+                  child: Text(snapshot.error.toString()),
+                );
+          }else{
          return  Column(
           children: [
             Padding(
@@ -96,8 +96,6 @@ return CountryWeatherModel.fromJson(response.data);
          );
         }
       }),
-      
-      
       
     );
   }

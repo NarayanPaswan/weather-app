@@ -1,9 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:weatherapp/pages/weather_details.dart';
-
-import '../mock_data/country_map_data.dart';
-
-
+import 'package:weatherapp/pages/weatherapp/weather_details.dart';
+import '../../mock_data/country_map_data.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -14,11 +13,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController searchController = TextEditingController();
+  Timer? _debounceTimer;
   @override
   void dispose() {
-    // TODO: implement dispose
+
     super.dispose();
-    searchController.text;
+    searchController.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -39,11 +39,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   Expanded(
                     child: TextFormField(
                      controller: searchController,
-                    //  onChanged: (value){
-                    //   setState(() {
-                        
-                    //   });
-                    //  },
+                     onChanged: (value) {
+                          // Cancel any existing Timer
+                          if (_debounceTimer != null) {
+                            _debounceTimer!.cancel();
+                          }
+      
+                          // Start a new Timer with delay of 2 seconds
+                          _debounceTimer = Timer(const Duration(seconds: 2), () {
+                            setState(() {
+                              // Perform search here
+                            });
+                          });
+                        },
                      decoration:InputDecoration(
                        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                        hintText: 'Search your country',
@@ -55,9 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const SizedBox(width: 5,),
                   ElevatedButton(onPressed: (){
-                    setState(() {
-                      searchController.text;
-                    });
+                    // setState(() {
+                    //   searchController.text;
+                    // });
                   }, child: const Text("Search"))
                 ],
               ),
